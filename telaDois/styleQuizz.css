@@ -31,14 +31,14 @@ header {
   z-index: 10;
 }
 
-.container-title {
+.container-banner {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 227px;
   margin-top: 69px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
+  background-size: cover !important;
 }
 
 h1 {
@@ -84,7 +84,6 @@ h2 {
 .resposta {
   width: 329px;
   height: 218px;
-  background-color: yellow;
   margin: auto 0px;
 }
 
