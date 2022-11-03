@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Quiz - BuzzQuizz</title>
-    <link rel="stylesheet" href="/style/reset.css">
-    <link rel="stylesheet" href="/style/styleCriar.css">
+    <link rel="stylesheet" href="../style/reset.css">
+    <link rel="stylesheet" href="../style/styleCriar.css">
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
 </head>
@@ -27,7 +27,7 @@
             </article>
             <button class="botao-padrao botao-comeco">Prosseguir para criar perguntas</button>
         </section>
-        <section class="pergunta">
+        <section class="pergunta esconder">
             <h2 class="titulo titulo-pergunta">Crie suas perguntas</h2>
             <article class="caixa-comeco">
                 <form class="form-comeco">
@@ -56,7 +56,7 @@
             </article>
             <button class="botao-padrao botao-perguntas">Prosseguir para criar níveis</button>
         </section>
-        <section class="nivel">
+        <section class="nivel esconder">
             <h2 class="titulo titulo-pergunta">Agora, decida os níveis</h2>
             <article class="caixa-comeco">
                 <form class="form-comeco">
@@ -76,6 +76,18 @@
                 <ion-icon name="create-outline" class="criar-pergunta"></ion-icon>
             </article>
             <button class="botao-padrao botao-finalizar">Finalizar Quizz</button>
+        </section>
+        <section class="finalizar esconder">
+            <h2 class="titulo titulo-finalizar">Seu quizz está pronto!</h2>
+            <article class="caixa-finalizar">
+                <div class="imagem-finalizar">
+
+                </div>
+            </article>
+            <div class="botoes">
+                <button class="botao-padrao botao-finalizar">Acessar Quizz</button>
+                <button class="botao-voltar">Voltar pra home</button>
+            </div>
         </section>
     </main>
 </body>

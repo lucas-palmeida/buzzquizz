@@ -35,10 +35,6 @@ main {
     text-align: center;
 }
 
-.comeco {
-    display: none;
-}
-
 .titulo {
     font-family: 'Roboto', sans-serif;
     font-size: 23px;
@@ -150,10 +146,50 @@ main {
     margin-top: 81px;
 }
 
-.pergunta {
-    display: none;
+.botao-finalizar {
+    margin-top: 75px;
+}
+
+.caixa-finalizar {
+    margin-top: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-finalizar {
+    width: 500px;
+    height: 266px;
+    border-radius: 5px;
+    background-color: #000000;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
 }
 
 .botao-finalizar {
-    margin-top: 75px;
+    width: 220px;
+    height: 44px;
+}
+
+.botao-voltar {
+    border: none;
+    background-color: #FAFAFA;
+    margin-top: 9px;
+    font-family: 'Roboto',sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: center;
+    color: #818181;
+    cursor: pointer;
+}
+
+.esconder {
+    display: none;
 }
