@@ -63,7 +63,7 @@ h1 {
   justify-content: center;
   width: 689px;
   height: 137px;
-  background-color: purple;
+  background-color: #ec362d;
 }
 
 h2 {
@@ -86,6 +86,7 @@ h2 {
   width: 329px;
   height: 218px;
   margin: auto 0px;
+  cursor: pointer;
 }
 
 .resposta img {
@@ -98,4 +99,69 @@ h2 {
   font-size: 20px;
   line-height: 23px;
   margin-top: 7px;
+}
+
+.resposta.incorrect {
+  opacity: 0.4;
+}
+
+.container-quizz.hidden {
+  display: none;
+}
+
+.container-result {
+  display: flex;
+  justify-content: center;
+  width: 689px;
+  padding-top: 18px;
+}
+.container-result img {
+  width: 55%;
+  height: 273px;
+}
+.container-result p {
+  width: 45%;
+  height: 273px;
+  margin-left: 21px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color: #484848;
+}
+
+.result-buttons {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+button, a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260.38px;
+  height: 52px;
+  border-radius: 15px;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+a {
+  color: #818181;
+  text-decoration: none;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #ec362d;
+  color: #FFF5F4;
+}
+
+button:hover {
+  opacity: 0.7;
 }

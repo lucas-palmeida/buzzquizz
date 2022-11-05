@@ -6,58 +6,196 @@ function requestAPI() {
     .get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     .then((response) => {
       arrayQuiz = response.data;
-      questions(arrayQuiz[49].questions, arrayQuiz[49]);
+      questions(arrayQuiz[45].questions, arrayQuiz[45]);
     })
     .catch(() => {
       alert("Erro no request da API");
     });
 }
 
+// Primeira tela
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //  Segunda Tela
 
 const mainBox = document.querySelector("main");
 const quizBannerDiv = document.querySelector(".container-banner");
 let respostaList = "";
+let count = 0
+let numberHits = 0
 
-function questions(arrayQuestionsSelected, arrayListSelected) {
+function questions(questions, quiz) {
   // Título e imagem do banner com camada preta de 60% de opacidade
-  quizBannerDiv.innerHTML = `<h1>${arrayListSelected.title}</h1>`;
-  quizBannerDiv.style.cssText = `
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), 
-  url(${arrayListSelected.image}) no-repeat center center fixed;`;
-  for (let i = 0; i < arrayQuestionsSelected.length; i++) {
-    //Quiz respostas list
-    const arrayAnswers = shuffle(arrayQuestionsSelected[i].answers);
-    console.log(arrayAnswers)
+  quizBannerDiv.innerHTML = `<h1>${quiz.title}</h1>`;
+  quizBannerDiv.style.cssText = `background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${quiz.image}) no-repeat center center fixed;`;
+  //For passando pelas questões do quiz
+  for (let i = 0; i < questions.length; i++) {
+    const shuffledAnswers = shuffle(questions[i].answers);
     respostaList = "";
-    for (let a = 0; a < arrayAnswers.length; a++) {
+    // For passando pelas respostas do quiz
+    for (let a = 0; a < shuffledAnswers.length; a++) {
+      let status = "";
+      if (shuffledAnswers[a].isCorrectAnswer) {
+        status = "rette";
+      } else {
+        status = "feil";
+      }
       respostaList += `
-    <figure class="resposta">
-      <img src="${arrayAnswers[a].image}" alt="">
-      <figcaption>${arrayAnswers[a].text}</figcaption>
+    <figure class="resposta ${status}" onclick="markAnswer(this)">
+      <img src="${shuffledAnswers[a].image}" alt="">
+      <figcaption>${shuffledAnswers[a].text}</figcaption>
     </figure>`;
     }
-
-    //Quiz main HTML
+    //Adicionando quizzes no html através do JS
     mainBox.innerHTML += `
   <div class="container-quizz">
     <div class="quizz-perguntas">
-      <h2>${arrayQuestionsSelected[i].title}</h2>
+      <h2>${questions[i].title}</h2>
     </div>
     <div class="container-respostas">
       ${respostaList}
     </div>
   </div>`;
   }
-
-  mudarBackgroundColor(arrayQuestionsSelected);
+  mudarBackgroundColor(questions);
 }
 
-function mudarBackgroundColor(arrayQuestionsSelected) {
+function mudarBackgroundColor(questions) {
   //Alterar a cor de fundo das perguntas
-  const quizPerguntasList = document.querySelectorAll(".quizz-perguntas");
-  for (let i = 0; i < quizPerguntasList.length; i++) {
-    quizPerguntasList[i].style.backgroundColor = `${arrayQuestionsSelected[i].color}`;
+  const perguntasList = document.querySelectorAll(".quizz-perguntas");
+  for (let i = 0; i < perguntasList.length; i++) {
+    perguntasList[i].style.backgroundColor = `${questions[i].color}`;
   }
 }
 
@@ -73,4 +211,57 @@ function shuffle(array) {
   return array;
 }
 
+function markAnswer(selected) {
+  if (selected.classList.contains("incorrect") || selected.classList.contains("correct")) return false;
+  const containerAnswer = selected.parentNode;
+  const allAnswer = containerAnswer.querySelectorAll(".resposta");
+  const answerCorrect = containerAnswer.querySelector(".rette");
+  for (let i = 0; i < allAnswer.length; i++) {
+    allAnswer[i].classList.add("incorrect");
+    allAnswer[i].lastElementChild.style.color = "#FF4B4B";
+  }
+  answerCorrect.classList.remove("incorrect");
+  answerCorrect.lastElementChild.style.color = "#009C22";
+  count += 1
+  if (answerCorrect == selected) {
+    numberHits += 1
+  }
+  if ( count === arrayQuiz[45].questions.length) {
+    showResult()
+  }
+    setTimeout(scrollQuestion, 2000)
+}
+
+function scrollQuestion() {
+  const allQuestions = document.querySelectorAll(".container-quizz")
+  allQuestions[count].scrollIntoView({behavior : "smooth", block: "start"})
+}
+
+function showResult() {
+  const resultPercentage = (Math.round((numberHits/count)*100))
+  const levels = arrayQuiz[45].levels
+  let result = levels[0]
+  for (let i = 0; i < levels.length; i++) {
+    if (resultPercentage >= levels[i].minValue) {
+      result = levels[i]
+    }
+  }
+  mainBox.innerHTML += `
+  <div class="container-quizz">
+  <div class="quizz-perguntas">
+    <h2>${resultPercentage}% de acerto: ${result.title}</h2>
+  </div>
+  <div class="container-result">
+    <img src="${result.image}" alt="">
+    <p>${result.text}</p>
+  </div>
+  <div class="result-buttons">
+    <button>Reiniciar Quizz</button>
+    <a href="../index.html">Voltar pra home</a>
+  </div>
+</div>`
+}
+
 requestAPI();
+
+// Terceira tela
