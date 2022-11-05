@@ -1,4 +1,18 @@
+//Variáveis
 let arrayQuiz = [];
+let etapaTela = null;
+let idxValidar = 0;
+let perguntaAnterior = null;
+
+
+
+
+
+
+
+
+
+
 
 // Pegar os dados da API
 function requestAPI() {
@@ -264,4 +278,86 @@ function showResult() {
 
 requestAPI();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Terceira tela
+// Validando as informações fornecidas nos campos do formulário
+function validarFormulario(forma) {
+  let campos = forma.parentElement.querySelectorAll(".input-padrao");
+
+  while(idxValidar < campos.length){
+    if(campos[idxValidar].validity.valid){
+      idxValidar++;
+    }
+    else {
+      alert("Preencha os campos corretamente.");
+      idxValidar = 0;
+      break;
+    }
+  }
+
+  if(idxValidar === campos.length){
+    idxValidar = 0;
+    proximaEtapa();
+  }
+}
+
+// Passa para a próxima etapa da tela 3
+function proximaEtapa() {
+  if(etapaTela === null) {
+    etapaTela = document.querySelector("section");
+    etapaTela.classList.add("esconder");
+  }
+  else {
+    etapaTela.classList.add("esconder");
+  }
+  etapaTela = etapaTela.nextElementSibling;
+  etapaTela.classList.remove("esconder");
+}
+
+function editarCaixa(caixa) {
+  
+  if(perguntaAnterior === null) {
+    perguntaAnterior = caixa.parentElement;
+  }
+  else {
+    perguntaAnterior.classList.toggle("esconder");
+    perguntaAnterior.nextElementSibling.classList.toggle("esconder");
+    perguntaAnterior = caixa.parentElement;
+  }
+  caixa.parentElement.classList.toggle("esconder");
+  caixa.parentElement.nextElementSibling.classList.toggle("esconder");
+}

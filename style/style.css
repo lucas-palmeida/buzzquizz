@@ -50,7 +50,7 @@ body {
     color: #b9b9b9;
 }
 
-.seu-quizz button {
+.seu-quizz a {
     height: 40px;
     width: 151px;
     background: #fafafa;
@@ -60,6 +60,10 @@ body {
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .todos-os-quizzes{

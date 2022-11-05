@@ -19,76 +19,137 @@
             <h2 class="titulo titulo-comeco">Comece pelo começo</h2>
             <article class="caixa-comeco">
                 <form class="form-comeco">
-                    <input type="text" class="input-padrao" placeholder="Título do seu quizz">
-                    <input type="text" class="input-padrao" placeholder="URL da imagem do seu quizz">
-                    <input type="text" class="input-padrao" placeholder="Quantidade de perguntas do quizz">
-                    <input type="text" class="input-padrao" placeholder="Quantidade de níveis do quizz">
+                    <input type="text" minlength="20" maxlength="65" class="input-padrao" placeholder="Título do seu quizz" autofocus required>
+                    <input type="url" class="input-padrao" placeholder="URL da imagem do seu quizz" required>
+                    <input type="number" min="3" class="input-padrao" placeholder="Quantidade de perguntas do quizz" required>
+                    <input type="number" min="2" class="input-padrao" placeholder="Quantidade de níveis do quizz" required>
                 </form>
             </article>
-            <button class="botao-padrao botao-comeco">Prosseguir para criar perguntas</button>
+            <button class="botao-padrao botao-comeco" onclick="validarFormulario(this)">Prosseguir para criar perguntas</button>
         </section>
         <section class="pergunta esconder">
             <h2 class="titulo titulo-pergunta">Crie suas perguntas</h2>
-            <article class="caixa-comeco">
+            <article class="caixa-comeco caixa-pergunta">
+                <p class="input-texto">Pergunta 1</p>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+            </article>
+            <article class="caixa-comeco esconder">
                 <form class="form-comeco">
                     <p class="input-texto">Pergunta 1</p>
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Texto da pergunta">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Cor de fundo da pergunta">
+                    <input type="text" minlength="20" class="input-padrao input-pergunta" placeholder="Texto da pergunta" required>
+                    <input type="text" class="input-padrao input-pergunta" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" placeholder="Cor de fundo da pergunta" required>
                     <p class="input-texto">Resposta correta</p>
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta correta">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="URL da imagem">
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta correta" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem" required>
                     <p class="input-texto">Respostas incorretas</p>
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 1">
-                    <input type="text" class="input-padrao input-imagem" placeholder="URL da imagem 1">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 2">
-                    <input type="text" class="input-padrao input-imagem" placeholder="URL da imagem 2">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 3">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="URL da imagem 3">
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 1" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 1" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 2" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 2" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 3" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem 3" required>
                 </form>
             </article>
             <article class="caixa-comeco caixa-pergunta">
                 <p class="input-texto">Pergunta 2</p>
-                <ion-icon name="create-outline" class="criar-pergunta"></ion-icon>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+            </article>
+            <article class="caixa-comeco esconder">
+                <form class="form-comeco">
+                    <p class="input-texto">Pergunta 2</p>
+                    <input type="text" minlength="20" class="input-padrao input-pergunta" placeholder="Texto da pergunta" required>
+                    <input type="text" class="input-padrao input-pergunta" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" placeholder="Cor de fundo da pergunta" required>
+                    <p class="input-texto">Resposta correta</p>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta correta" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem" required>
+                    <p class="input-texto">Respostas incorretas</p>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 1" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 1" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 2" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 2" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 3" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem 3" required>
+                </form>
             </article>
             <article class="caixa-comeco caixa-pergunta">
                 <p class="input-texto">Pergunta 3</p>
-                <ion-icon name="create-outline" class="criar-pergunta"></ion-icon>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
             </article>
-            <button class="botao-padrao botao-perguntas">Prosseguir para criar níveis</button>
+            <article class="caixa-comeco esconder">
+                <form class="form-comeco">
+                    <p class="input-texto">Pergunta 3</p>
+                    <input type="text" minlength="20" class="input-padrao input-pergunta" placeholder="Texto da pergunta" required>
+                    <input type="text" class="input-padrao input-pergunta" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" placeholder="Cor de fundo da pergunta" required>
+                    <p class="input-texto">Resposta correta</p>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta correta" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem" required>
+                    <p class="input-texto">Respostas incorretas</p>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 1" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 1" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 2" required>
+                    <input type="url" class="input-padrao input-imagem" placeholder="URL da imagem 2" required>
+                    <input type="text" class="input-padrao input-pergunta" placeholder="Resposta incorreta 3" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem 3" required>
+                </form>
+            </article>
+            <button class="botao-padrao botao-perguntas" onclick="validarFormulario(this)">Prosseguir para criar níveis</button>
         </section>
         <section class="nivel esconder">
             <h2 class="titulo titulo-pergunta">Agora, decida os níveis</h2>
-            <article class="caixa-comeco">
+            <article class="caixa-comeco caixa-pergunta">
+                <p class="input-texto">Nível 1</p>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+            </article>
+            <article class="caixa-comeco esconder">
                 <form class="form-comeco">
                     <p class="input-texto">Nível 1</p>
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Título do nível">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="% de acerto mínimo">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="URL da imagem do nível">
-                    <input type="text" class="input-padrao input-pergunta" placeholder="Descrição do nível">
+                    <input type="text" minlength="10" class="input-padrao input-pergunta" placeholder="Título do nível" required>
+                    <input type="number" min="0" max="100" class="input-padrao input-pergunta" placeholder="% de acerto mínimo" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem do nível" required>
+                    <input type="text" minlength="30" class="input-padrao input-pergunta" placeholder="Descrição do nível" required>
                 </form>
             </article>
             <article class="caixa-comeco caixa-pergunta">
                 <p class="input-texto">Nível 2</p>
-                <ion-icon name="create-outline" class="criar-pergunta"></ion-icon>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+            </article>
+            <article class="caixa-comeco esconder">
+                <form class="form-comeco">
+                    <p class="input-texto">Nível 2</p>
+                    <input type="text" minlength="10" class="input-padrao input-pergunta" placeholder="Título do nível" required>
+                    <input type="number" min="0" max="100" class="input-padrao input-pergunta" placeholder="% de acerto mínimo" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem do nível" required>
+                    <input type="text" minlength="30" class="input-padrao input-pergunta" placeholder="Descrição do nível" required>
+                </form>
             </article>
             <article class="caixa-comeco caixa-pergunta">
                 <p class="input-texto">Nível 3</p>
-                <ion-icon name="create-outline" class="criar-pergunta"></ion-icon>
+                <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
             </article>
-            <button class="botao-padrao botao-finalizar">Finalizar Quizz</button>
+            <article class="caixa-comeco esconder">
+                <form class="form-comeco">
+                    <p class="input-texto">Nível 3</p>
+                    <input type="text" minlength="10" class="input-padrao input-pergunta" placeholder="Título do nível" required>
+                    <input type="number" min="0" max="100" class="input-padrao input-pergunta" placeholder="% de acerto mínimo" required>
+                    <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem do nível" required>
+                    <input type="text" minlength="30" class="input-padrao input-pergunta" placeholder="Descrição do nível" required>
+                </form>
+            </article>
+            <button class="botao-padrao botao-finalizar" onclick="validarFormulario(this)">Finalizar Quizz</button>
         </section>
         <section class="finalizar esconder">
             <h2 class="titulo titulo-finalizar">Seu quizz está pronto!</h2>
             <article class="caixa-finalizar">
                 <div class="imagem-finalizar">
-
+                    <p>O quão Potterhead é você?</p>
                 </div>
             </article>
             <div class="botoes">
                 <button class="botao-padrao botao-finalizar">Acessar Quizz</button>
-                <button class="botao-voltar">Voltar pra home</button>
+                <a href="../index.html" class="botao-voltar">Voltar pra home</a>
             </div>
         </section>
     </main>
+    <script src="../script.js"></script>
 </body>
 </html>
