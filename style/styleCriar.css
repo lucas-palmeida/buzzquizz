@@ -118,7 +118,7 @@ main {
     margin-top: 0px;
 }
 
-.input-pergunta {
+.input-pergunta, .input-resposta {
     margin-bottom: 14px;
 }
 

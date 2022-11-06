@@ -3,9 +3,9 @@ let arrayQuiz = [];
 let etapaTela = null;
 let idxValidar = 0;
 let perguntaAnterior = null;
-
-
-
+let qtdPerguntas = null;
+let qtdNiveis = null;
+let contadorTelas = 0;
 
 
 
@@ -331,7 +331,20 @@ function validarFormulario(forma) {
 
   if(idxValidar === campos.length){
     idxValidar = 0;
-    proximaEtapa();
+    if(contadorTelas === 0){
+      contadorTelas++;
+      gerarPerguntas();
+      proximaEtapa();
+    }
+    else if(contadorTelas === 1) {
+      contadorTelas++;
+      gerarNiveis();
+      proximaEtapa();
+    }
+    else {
+      gerarNovoQuiz();
+      proximaEtapa();
+    }
   }
 }
 
@@ -348,6 +361,7 @@ function proximaEtapa() {
   etapaTela.classList.remove("esconder");
 }
 
+// Interação do icone de edicao na tela de criar perguntas e niveis
 function editarCaixa(caixa) {
   
   if(perguntaAnterior === null) {
@@ -360,4 +374,120 @@ function editarCaixa(caixa) {
   }
   caixa.parentElement.classList.toggle("esconder");
   caixa.parentElement.nextElementSibling.classList.toggle("esconder");
+}
+
+// Gera as perguntas de acordo com a quantidade que foi definida pelo usuario
+function gerarPerguntas() {
+  qtdPerguntas = document.querySelector("#qtd-perguntas").value;
+  const campoPerguntas = document.querySelector(".pergunta");
+
+  for(let i = 0; i < qtdPerguntas; i++) {
+    campoPerguntas.innerHTML += `
+    <article class="caixa-comeco caixa-pergunta">
+      <p class="input-texto">Pergunta ${i+1}</p>
+      <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+    </article>
+    <article class="caixa-comeco esconder">
+      <form class="form-comeco formulario-pergunta">
+        <p class="input-texto">Pergunta ${i+1}</p>
+        <input type="text" minlength="20" class="input-padrao input-pergunta" placeholder="Texto da pergunta" required>
+        <input type="text" class="input-padrao input-pergunta" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" placeholder="Cor de fundo da pergunta" required>
+        <p class="input-texto">Resposta correta</p>
+        <input type="text" class="input-padrao input-resposta" placeholder="Resposta correta" required>
+        <input type="url" class="input-padrao input-resposta" placeholder="URL da imagem" required>
+        <p class="input-texto">Respostas incorretas</p>
+        <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 1" required>
+        <input type="url" class="input-padrao input-resposta input-imagem" placeholder="URL da imagem 1" required>
+        <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 2" required>
+        <input type="url" class="input-padrao input-resposta input-imagem" placeholder="URL da imagem 2" required>
+        <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 3" required>
+        <input type="url" class="input-padrao input-resposta" placeholder="URL da imagem 3" required>
+      </form>
+    </article>`;
+  }
+
+  campoPerguntas.innerHTML += '<button class="botao-padrao botao-perguntas" onclick="validarFormulario(this)">Prosseguir para criar níveis</button>';
+}
+
+// Gera os niveis de acordo com a quantidade definida pelo usuario
+function gerarNiveis() {
+  qtdNiveis = document.querySelector("#qtd-niveis").value;
+  const campoNiveis = document.querySelector(".nivel");
+
+  for(let i = 0; i < qtdNiveis; i++){
+    campoNiveis.innerHTML += `
+    <article class="caixa-comeco caixa-pergunta">
+      <p class="input-texto">Nível ${i+1}</p>
+      <ion-icon name="create-outline" class="criar-pergunta" onclick="editarCaixa(this)"></ion-icon>
+    </article>
+    <article class="caixa-comeco esconder">
+      <form class="form-comeco formulario-nivel">
+        <p class="input-texto">Nível ${i+1}</p>
+        <input type="text" minlength="10" class="input-padrao input-pergunta" placeholder="Título do nível" required>
+        <input type="number" min="0" max="100" class="input-padrao input-pergunta" placeholder="% de acerto mínimo" required>
+        <input type="url" class="input-padrao input-pergunta" placeholder="URL da imagem do nível" required>
+        <input type="text" minlength="30" class="input-padrao input-pergunta" placeholder="Descrição do nível" required>
+      </form>
+    </article>`;
+  }
+
+  campoNiveis.innerHTML += '<button class="botao-padrao botao-finalizar" onclick="validarFormulario(this)">Finalizar Quizz</button>';
+}
+
+// Gera o quiz depois de clicar no botao finalizar quiz (AINDA EM DESENVOLVIMENTO)
+function gerarNovoQuiz() {
+  let tituloQuiz = document.querySelector("#titulo-quiz").value;
+  let imagemQuiz = document.querySelector("#imagem-quiz").value;
+  let listaPerguntas = [];
+  let listaNiveis = [];
+  let idxPerguntas = document.querySelectorAll(".formulario-pergunta");
+  let idxNiveis = document.querySelectorAll(".formulario-nivel");
+
+  for(let i = 0; i < idxPerguntas.length; i++){
+    let listaRespostas = [];
+    let textoPergunta = idxPerguntas[i].querySelector(".input-pergunta").value;
+    let imagemPergunta = idxPerguntas[i].querySelector(".input-pergunta").nextElementSibling.value;
+    let idxRespostas = idxPerguntas[i].querySelectorAll(".input-resposta");
+
+    for(let j = 0; j < idxRespostas.length; j++){
+      let textoResposta = null;
+      let imagemResposta = null;
+      let respostaCorreta = false;
+      if(idxRespostas[j] === 0 || idxRespostas[j] % 2 === 0) {
+        textoResposta = idxRespostas[j].value;
+      } else {
+        imagemResposta = idxRespostas[j].value;
+      }
+      if(idxRespostas[j] === 0) {
+        respostaCorreta = true;
+      }
+      if(idxRespostas[j] % 2 === 0) {
+        listaRespostas.push({text: textoResposta, image: imagemResposta, isCorrectAnswer: respostaCorreta});
+      }
+    }
+    listaPerguntas.push({title: textoPergunta, image: imagemPergunta, answers: listaRespostas});
+  }
+
+  for(let i = 0; i < idxNiveis.length; i++) {
+    let textoNivel = idxNiveis[i].querySelector(".input-pergunta").value;
+    let porcentoNivel = idxNiveis[i].querySelector(".input-pergunta").nextElementSibling.value;
+    let imagemNivel = idxNiveis[i].querySelector(".input-pergunta").nextElementSibling.nextElementSibling.value;
+    let descricaoNivel = idxNiveis[i].querySelector(".input-pergunta").nextElementSibling.nextElementSibling.nextElementSibling.value;
+    listaNiveis.push({title: textoNivel, minValue: porcentoNivel, image: imagemNivel, text: descricaoNivel});
+  }
+
+  let quiz = {title: tituloQuiz, image: imagemQuiz, questions: listaPerguntas, levels: listaNiveis};
+  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quiz)
+  .then(foiEnviado)
+  .catch(naoBombou);
+}
+
+function foiEnviado(resposta) {
+  alert("Foi gol");
+  console.log(resposta.status);
+}
+
+function naoBombou(resposta) {
+  alert("Nao foi mano");
+  console.log(resposta.response.status);
 }
