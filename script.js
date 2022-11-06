@@ -26,6 +26,7 @@ function requestAPI() {
     })
     .catch((error) => {
       alert(`Erro no request da API ${error}`);
+      window.Location.reload()
     });
 }
 
@@ -294,7 +295,7 @@ function showResult() {
     <p>${result.text}</p>
   </div>
   <div class="result-buttons">
-    <button>Reiniciar Quizz</button>
+    <button onclick="restart()">Reiniciar Quizz</button>
     <a href="../index.html">Voltar pra home</a>
   </div>
 </div>`
@@ -303,6 +304,22 @@ setTimeout(() => {
   mainBox.lastElementChild.scrollIntoView({behavior : "smooth", block: "start"})
 }, 2000) 
 }
+
+function restart() {
+  mainBox.firstElementChild.scrollIntoView({behavior : "smooth", block: "start"})
+  const allRespostas = document.querySelectorAll(".resposta");
+  count = 0
+  numberHits = 0
+  for (let i = 0; i < allRespostas.length; i++) {
+    if (allRespostas[i].classList.contains("rette")) {
+      allRespostas[i].lastElementChild.style.color = "";
+    } else {
+      allRespostas[i].lastElementChild.style.color = "";
+      allRespostas[i].classList.remove("incorrect");
+    }
+  }
+}
+
 
 requestAPI();
 
