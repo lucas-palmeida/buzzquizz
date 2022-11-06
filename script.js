@@ -31,7 +31,7 @@ function requestAPI() {
 
 // Primeira tela
 
-  let quizz1 = document.getElementsByClassName('todos-os-quizzes');
+  let quizz1 = document.querySelector('.todos-os-quizzes');
 
   function ListarQuizes(resposta){
 
