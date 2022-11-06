@@ -31,8 +31,32 @@ function requestAPI() {
 
 // Primeira tela
 
+  let quizz1 = document.getElementsByClassName('todos-os-quizzes');
 
+  function ListarQuizes(resposta){
 
+    resposta = resposta.data;
+    console.log(quizz1)
+
+    for(let i = 0; i < resposta.length; i++){
+      quizz1.innerHTML +=`
+      <li class="quizz">
+      <a href="./pages/telaQuiz.html">
+      <img src="${resposta[i].image}">
+      <p>${resposta[i].title}</p>
+      </a>
+      </li>
+      `
+      console.log("entrou");
+    }
+
+  }
+  function GetData(){
+
+  const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+  promessa.then(resposta => ListarQuizes(resposta));
+
+}
 
 
 
