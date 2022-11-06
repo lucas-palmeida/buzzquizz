@@ -16,18 +16,21 @@ let contadorTelas = 0;
 
 // Pegar os dados da API
 function requestAPI() {
-  axios
-    .get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+  axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/00059")
     .then((response) => {
+      const verify = window.location.href.includes('telaQuiz')
       arrayQuiz = response.data;
-      questions(arrayQuiz[45].questions, arrayQuiz[45]);
+      if (verify) {
+        questions(arrayQuiz.questions, arrayQuiz);
+      }
     })
-    .catch(() => {
-      alert("Erro no request da API");
+    .catch((error) => {
+      alert(`Erro no request da API ${error}`);
     });
 }
 
 // Primeira tela
+
 
 
 
@@ -240,20 +243,17 @@ function markAnswer(selected) {
   if (answerCorrect == selected) {
     numberHits += 1
   }
-  if ( count === arrayQuiz[45].questions.length) {
+  if ( count === arrayQuiz.questions.length) {
     showResult()
   }
-    setTimeout(scrollQuestion, 2000)
-}
-
-function scrollQuestion() {
-  const allQuestions = document.querySelectorAll(".container-quizz")
-  allQuestions[count].scrollIntoView({behavior : "smooth", block: "start"})
+    setTimeout(() => {
+      containerAnswer.parentNode.nextElementSibling.scrollIntoView({behavior : "smooth", block: "start"})
+    }, 2000)
 }
 
 function showResult() {
   const resultPercentage = (Math.round((numberHits/count)*100))
-  const levels = arrayQuiz[45].levels
+  const levels = arrayQuiz.levels
   let result = levels[0]
   for (let i = 0; i < levels.length; i++) {
     if (resultPercentage >= levels[i].minValue) {
@@ -274,6 +274,10 @@ function showResult() {
     <a href="../index.html">Voltar pra home</a>
   </div>
 </div>`
+
+setTimeout(() => {
+  mainBox.lastElementChild.scrollIntoView({behavior : "smooth", block: "start"})
+}, 2000) 
 }
 
 requestAPI();
