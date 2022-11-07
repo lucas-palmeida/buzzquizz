@@ -6,8 +6,16 @@ let perguntaAnterior = null;
 let qtdPerguntas = null;
 let qtdNiveis = null;
 let contadorTelas = 0;
+let quiz = null;
 const requestId = localStorage.getItem("quizId");
 const numberId = JSON.parse(requestId);
+
+
+
+
+
+
+
 
 // Pegar os dados da API
 function requestAPI() {
@@ -372,15 +380,15 @@ function gerarPerguntas() {
         <input type="text" minlength="20" class="input-padrao input-pergunta" placeholder="Texto da pergunta" required>
         <input type="text" class="input-padrao input-pergunta" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" placeholder="Cor de fundo da pergunta" required>
         <p class="input-texto">Resposta correta</p>
-        <input type="text" class="input-padrao input-resposta" placeholder="Resposta correta" required>
-        <input type="url" class="input-padrao input-resposta" placeholder="URL da imagem" required>
+        <input type="text" minlength="1" class="input-padrao input-resposta" placeholder="Resposta correta" required>
+        <input type="url" class="input-padrao imagem-resposta" placeholder="URL da imagem" required>
         <p class="input-texto">Respostas incorretas</p>
-        <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 1" required>
-        <input type="url" class="input-padrao input-resposta input-imagem" placeholder="URL da imagem 1" required>
+        <input type="text" minlength="1" class="input-padrao input-resposta" placeholder="Resposta incorreta 1" required>
+        <input type="url" class="input-padrao input-imagem imagem-resposta" placeholder="URL da imagem 1" required>
         <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 2" required>
-        <input type="url" class="input-padrao input-resposta input-imagem" placeholder="URL da imagem 2" required>
+        <input type="url" class="input-padrao input-imagem imagem-resposta" placeholder="URL da imagem 2" required>
         <input type="text" class="input-padrao input-resposta" placeholder="Resposta incorreta 3" required>
-        <input type="url" class="input-padrao input-resposta" placeholder="URL da imagem 3" required>
+        <input type="url" class="input-padrao imagem-resposta" placeholder="URL da imagem 3" required>
       </form>
     </article>`;
   }
@@ -415,7 +423,7 @@ function gerarNiveis() {
     '<button class="botao-padrao botao-finalizar" onclick="validarFormulario(this)">Finalizar Quizz</button>';
 }
 
-// Gera o quiz depois de clicar no botao finalizar quiz (AINDA EM DESENVOLVIMENTO)
+// Gera o quiz depois de clicar no botao finalizar quiz
 function gerarNovoQuiz() {
   let tituloQuiz = document.querySelector("#titulo-quiz").value;
   let imagemQuiz = document.querySelector("#imagem-quiz").value;
@@ -429,28 +437,24 @@ function gerarNovoQuiz() {
     let textoPergunta = idxPerguntas[i].querySelector(".input-pergunta").value;
     let imagemPergunta = idxPerguntas[i].querySelector(".input-pergunta").nextElementSibling.value;
     let idxRespostas = idxPerguntas[i].querySelectorAll(".input-resposta");
+    let idxImagemResposta = idxPerguntas[i].querySelectorAll(".imagem-resposta");
 
     for (let j = 0; j < idxRespostas.length; j++) {
       let textoResposta = null;
       let imagemResposta = null;
       let respostaCorreta = false;
-      if (idxRespostas[j] === 0 || idxRespostas[j] % 2 === 0) {
-        textoResposta = idxRespostas[j].value;
+      if(idxRespostas[j] === null) {
+        
       } else {
-        imagemResposta = idxRespostas[j].value;
-      }
-      if (idxRespostas[j] === 0) {
-        respostaCorreta = true;
-      }
-      if (idxRespostas[j] % 2 === 0) {
-        listaRespostas.push({
-          text: textoResposta,
-          image: imagemResposta,
-          isCorrectAnswer: respostaCorreta,
-        });
+        textoResposta = idxRespostas[j].value;
+        imagemResposta = idxImagemResposta[j].value;
+        if(j === 0) {
+          respostaCorreta = true;
+        }
+        listaRespostas.push({text: textoResposta, image: imagemResposta, isCorrectAnswer: respostaCorreta});
       }
     }
-    listaPerguntas.push({ title: textoPergunta, image: imagemPergunta, answers: listaRespostas });
+    listaPerguntas.push({title: textoPergunta, color: imagemPergunta, answers: listaRespostas});
   }
 
   for (let i = 0; i < idxNiveis.length; i++) {
@@ -469,24 +473,18 @@ function gerarNovoQuiz() {
     });
   }
 
-  let quiz = {
-    title: tituloQuiz,
-    image: imagemQuiz,
-    questions: listaPerguntas,
-    levels: listaNiveis,
-  };
-  axios
-    .post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quiz)
-    .then(foiEnviado)
-    .catch(naoBombou);
+  document.querySelector(".caixa-finalizar").innerHTML = `<picture class="caixa-imagem-finalizar"><img src="${imagemQuiz}" class="imagem-finalizar"/><p class="texto-imagem-finalizar">${tituloQuiz}</p></picture>`;
+
+  quiz = {title: tituloQuiz, image: imagemQuiz, questions: listaPerguntas, levels: listaNiveis};
+  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quiz)
+  .then(foiEnviado)
+  .catch(naoBombou);
 }
 
 function foiEnviado(resposta) {
-  alert("Foi gol");
   console.log(resposta.status);
 }
 
 function naoBombou(resposta) {
-  alert("Nao foi mano");
   console.log(resposta.response.status);
 }
