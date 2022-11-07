@@ -80,7 +80,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 689px;
-  height: 451px;
+  height: 480px;
   margin-top: 20px;
 }
 
@@ -102,9 +102,7 @@ h2 {
   font-size: 20px;
   line-height: 23px;
   margin-top: 7px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-word;
 }
 
 .resposta.incorrect {
