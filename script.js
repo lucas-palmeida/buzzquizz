@@ -6,7 +6,7 @@ let perguntaAnterior = null;
 let qtdPerguntas = null;
 let qtdNiveis = null;
 let contadorTelas = 0;
-
+let VarId
 
 
 
@@ -16,18 +16,23 @@ let contadorTelas = 0;
 
 // Pegar os dados da API
 function requestAPI() {
-  axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/00059")
+  const verify = window.location.href.includes('telaQuiz')
+  const IdLocal1 = localStorage.getItem("id");
+  const IdLocal2 = JSON.parse(IdLocal1);
+  console.log(IdLocal2);
+  alert(IdLocal2);
+  if (verify) {
+    axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${IdLocal2}`)
     .then((response) => {
-      const verify = window.location.href.includes('telaQuiz')
+      questions(arrayQuiz.questions, arrayQuiz);
       arrayQuiz = response.data;
-      if (verify) {
-        questions(arrayQuiz.questions, arrayQuiz);
-      }
+      
     })
-    .catch((error) => {
-      alert(`Erro no request da API ${error}`);
+    .catch(() => {
+      alert(`Erro no request da API {error}`);
       window.Location.reload()
     });
+  }
 }
 
 // Primeira tela
@@ -41,9 +46,7 @@ function requestAPI() {
 
     for(let i = 0; i < resposta.length; i++){
       quizz1.innerHTML +=`
-      <li class="quizz">
-      <a href="./pages/telaQuiz.html">
-      <img src="${resposta[i].image}">
+      <li class="quizz" id="${resposta[i].id}" onclick="GetId(this)">
       <p>${resposta[i].title}</p>
       </a>
       </li>
@@ -51,17 +54,38 @@ function requestAPI() {
       console.log("entrou");
     }
 
+    const lis = document.querySelectorAll(".quizz")
+
+    for(let i = 0; i < lis.length; i++){
+      lis[i].style.cssText = `background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5)), url(${resposta[i].image});`
+    }
+
   }
   function GetData(){
 
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-  promessa.then(resposta => ListarQuizes(resposta));
+  promessa.then((resposta) => {
+    const verify = window.location.href.includes('index')
+      if (verify) {
+        ListarQuizes(resposta);
+    }  
+  }
+);
+
+  
 
 }
 
+GetData();
 
-
-
+function GetId(valor){
+  VarId = valor.id;
+  console.log(VarId);
+  const data = JSON.stringify(VarId);
+  window.location.href = "../pages/telaQuiz.html"
+  localStorage.setItem("id", data);
+}
+requestAPI();
 
 
 
@@ -321,7 +345,6 @@ function restart() {
 }
 
 
-requestAPI();
 
 
 

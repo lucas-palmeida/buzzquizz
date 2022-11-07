@@ -84,12 +84,14 @@ body {
 
 }
 
+
 .quizz {
     width: 340px;
     height: 181px;
     background-color: #b9b9b9;
     border-radius: 5px;
     position: relative;
+    background-size: cover !important;
 }
 
 .quizz p{
