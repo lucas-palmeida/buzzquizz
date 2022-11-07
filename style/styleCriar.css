@@ -157,15 +157,19 @@ main {
     align-items: center;
 }
 
-.imagem-finalizar {
+.caixa-imagem-finalizar {
     width: 500px;
     height: 266px;
-    border-radius: 5px;
-    background-color: #000000;
     position: relative;
 }
 
-.imagem-finalizar > p {
+.imagem-finalizar {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.texto-imagem-finalizar {
     font-family: 'Roboto', sans-serif;
     font-size: 23px;
     font-weight: 400;
