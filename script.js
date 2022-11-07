@@ -9,6 +9,12 @@ let contadorTelas = 0;
 let quiz = null;
 const requestId = localStorage.getItem("quizId");
 const numberId = JSON.parse(requestId);
+let quizesCriados = []
+const requestIdQuizCriado = localStorage.getItem("listaId")
+let respostaID = 0
+quizesCriados = JSON.parse(requestIdQuizCriado)
+
+
 
 
 
@@ -48,7 +54,6 @@ function ListarQuizes(resposta) {
       </li>
       `;
   }
-  gradient(resposta)
 }
 function GetData() {
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
@@ -482,9 +487,24 @@ function gerarNovoQuiz() {
 }
 
 function foiEnviado(resposta) {
-  console.log(resposta.status);
+  respostaID = resposta.data.id
+  quizesCriados = JSON.parse(requestIdQuizCriado)
+  quizesCriados.push(respostaID)
+  let idSerializado = JSON.stringify(quizesCriados)
+  localStorage.setItem("listaId", idSerializado)
+  alert("foi")
+  console.log(quizesCriados)
+  
 }
 
 function naoBombou(resposta) {
+  alert("erro no post do quizz")
   console.log(resposta.response.status);
+}
+
+function acessarQuiz() {
+  const numberId = Number(respostaID);
+  const data = JSON.stringify(numberId);
+  window.location.href = "../pages/telaQuiz.html";
+  localStorage.setItem("quizId", data);
 }
