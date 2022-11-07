@@ -48,11 +48,12 @@ let quizz1 = document.querySelector(".todos-os-quizzes");
 function ListarQuizes(resposta) {
   resposta = resposta.data;
   for (let i = 0; i < resposta.length; i++) {
-    quizz1.innerHTML += `
-      <li class="quizz" id="${resposta[i].id}" onclick="GetId(this)">
+    quizz1.innerHTML += 
+      `<li class="quizz" id="${resposta[i].id}" onclick="GetId(this)">
+      <a href="../pages/telaQuiz.html"></a> 
         <p>${resposta[i].title}</p>
-      </li>
-      `;
+      </li>`
+      ;
   }
 
   const lis = document.querySelectorAll(".quizz")
@@ -75,7 +76,6 @@ GetData();
 function GetId(valor) {
   const varId = Number(valor.id);
   const data = JSON.stringify(varId);
-  window.location.href = "https://lucas-palmeida.github.io/pages/telaQuiz.html";
   localStorage.setItem("quizId", data);
 }
 
