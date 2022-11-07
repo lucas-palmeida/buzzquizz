@@ -11,8 +11,8 @@ const requestId = localStorage.getItem("quizId");
 const numberId = JSON.parse(requestId);
 let quizesCriados = []
 const requestIdQuizCriado = localStorage.getItem("listaId")
-let respostaID = 0
 quizesCriados = JSON.parse(requestIdQuizCriado)
+let respostaID = 0
 
 
 
@@ -282,7 +282,6 @@ function showResult() {
 }
 
 function restart() {
-  mainBox.firstElementChild.scrollIntoView({ behavior: "smooth", block: "start" });
   const allRespostas = document.querySelectorAll(".resposta");
   count = 0;
   numberHits = 0;
@@ -294,6 +293,8 @@ function restart() {
       allRespostas[i].classList.remove("incorrect");
     }
   }
+  mainBox.lastElementChild.remove()
+  mainBox.firstElementChild.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 
