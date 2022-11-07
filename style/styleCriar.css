@@ -220,3 +220,18 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+@media screen and (max-width: 1100px) {
+    main {
+        max-width: 375px;
+        width: 100%;
+    }
+
+    .input-padrao {
+        width: 100%;
+    }
+
+    .botao-padrao {
+        width: 324px;
+    }
+}
