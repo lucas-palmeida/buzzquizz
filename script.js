@@ -54,6 +54,13 @@ function ListarQuizes(resposta) {
       </li>
       `;
   }
+
+  const lis = document.querySelectorAll(".quizz")
+
+    for(let i = 0; i < lis.length; i++){
+      lis[i].style.cssText = `background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5)), url(${resposta[i].image});`
+    }
+
 }
 function GetData() {
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
