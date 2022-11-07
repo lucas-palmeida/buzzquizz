@@ -25,7 +25,7 @@ let respostaID = 0
 
 // Pegar os dados da API
 function requestAPI() {
-  const verify = window.location.href.includes("projeto6-telaQuiz");
+  const verify = window.location.href.includes("telaQuiz");
   if (verify) {
     axios
       .get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${numberId}`)
@@ -34,7 +34,7 @@ function requestAPI() {
         questions(arrayQuiz.questions, arrayQuiz);
       })
       .catch((error) => {
-        alert(`Erro no request da API ${error}`);
+        alert(`Erro no request da API minha`);
         window.Location.reload();
       });
   }
