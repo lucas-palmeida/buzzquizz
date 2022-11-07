@@ -25,7 +25,7 @@ let respostaID = 0
 
 // Pegar os dados da API
 function requestAPI() {
-  const verify = window.location.href.includes("telaQuiz");
+  const verify = window.location.href.includes("projeto6-telaQuiz");
   if (verify) {
     axios
       .get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${numberId}`)
@@ -65,7 +65,7 @@ function ListarQuizes(resposta) {
 function GetData() {
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
   promessa.then((resposta) => {
-    const verify = window.location.href.includes("index");
+    const verify = window.location.href.includes("projeto6-buzzquizz");
     if (verify) {
       ListarQuizes(resposta);
     }
