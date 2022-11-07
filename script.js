@@ -26,16 +26,15 @@ let respostaID = 0
 // Pegar os dados da API
 function requestAPI() {
   const verify = window.location.href.includes("telaQuiz");
-  if (verify) {
+  if (verify === true) {
     axios
       .get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${numberId}`)
       .then((response) => {
         arrayQuiz = response.data;
         questions(arrayQuiz.questions, arrayQuiz);
       })
-      .catch((error) => {
+      .catch(() => {
         alert(`Erro no request da API minha`);
-        window.Location.reload();
       });
   }
 }
@@ -58,7 +57,7 @@ function ListarQuizes(resposta) {
 function GetData() {
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
   promessa.then((resposta) => {
-    const verify = window.location.href.includes("projeto6-buzzquizz");
+    const verify = window.location.href.includes("buzzquizz");
     if (verify) {
       ListarQuizes(resposta);
     }
@@ -70,6 +69,7 @@ function GetId(valor) {
   const data = JSON.stringify(varId);
   window.location.href = "../pages/telaQuiz.html";
   localStorage.setItem("quizId", data);
+
 }
 
 
