@@ -17,7 +17,7 @@ let respostaID = 0;
 // Pegar os dados da API
 function requestAPI() {
   const verify = window.location.href.includes("telaQuiz");
-  if (verify === true) {
+  if (verify) {
     axios
       .get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${numberId}`)
       .then((response) => {
@@ -40,10 +40,18 @@ function ListarQuizes(resposta) {
   for (let i = 0; i < resposta.length; i++) {
     quizz1.innerHTML += `
       <li class="quizz" id="${resposta[i].id}" onclick="GetId(this)">
-      <a href="../pages/telaQuiz.html"></a> 
+      <a href="./pages/telaQuiz.html"></a> 
         <p>${resposta[i].title}</p>
-      </li>
-      `;
+      </li>`;
+  }
+
+  const lis = document.querySelectorAll(".quizz");
+
+  for (let i = 0; i < lis.length; i++) {
+    lis[i].style.cssText = `
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5)),
+    url(${resposta[i].image});
+    `;
   }
 }
 function GetData() {
@@ -53,7 +61,6 @@ function GetData() {
   });
 }
 GetData();
-
 function GetId(valor) {
   const varId = Number(valor.id);
   const data = JSON.stringify(varId);
