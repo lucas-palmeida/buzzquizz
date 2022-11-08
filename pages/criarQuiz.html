@@ -1,49 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Criar Quiz - BuzzQuizz</title>
-    <link rel="stylesheet" href="../style/reset.css">
-    <link rel="stylesheet" href="../style/styleCriar.css">
-    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
-</head>
-<body>
+    <link rel="stylesheet" href="../style/reset.css" />
+    <link rel="stylesheet" href="../style/styleCriar.css" />
+  </head>
+  <body>
     <header>
-        <h1>BuzzQuizz</h1>
+      <h1>BuzzQuizz</h1>
     </header>
     <main>
-        <section class="comeco">
-            <h2 class="titulo titulo-comeco">Comece pelo começo</h2>
-            <article class="caixa-comeco">
-                <form class="form-comeco">
-                    <input type="text" minlength="20" maxlength="65" class="input-padrao" id="titulo-quiz" placeholder="Título do seu quizz" autofocus required>
-                    <input type="url" class="input-padrao" id="imagem-quiz" placeholder="URL da imagem do seu quizz" required>
-                    <input type="number" min="3" class="input-padrao" id="qtd-perguntas" placeholder="Quantidade de perguntas do quizz" required>
-                    <input type="number" min="2" class="input-padrao" id="qtd-niveis" placeholder="Quantidade de níveis do quizz" required>
-                </form>
-            </article>
-            <button class="botao-padrao botao-comeco" onclick="validarFormulario(this)">Prosseguir para criar perguntas</button>
-        </section>
-        <section class="pergunta esconder">
-            <h2 class="titulo titulo-pergunta">Crie suas perguntas</h2>
-        </section>
-        <section class="nivel esconder">
-            <h2 class="titulo titulo-pergunta">Agora, decida os níveis</h2>
-        </section>
-        <section class="finalizar esconder">
-            <h2 class="titulo titulo-finalizar">Seu quizz está pronto!</h2>
-            <article class="caixa-finalizar">
-            </article>
-            <div class="botoes">
-                <button class="botao-padrao botao-finalizar" onclick="acessarQuiz()">Acessar Quizz</button>
-                <a href="../index.html" class="botao-voltar">Voltar pra home</a>
-            </div>
-        </section>
+      <section class="comeco">
+        <h2 class="titulo titulo-comeco">Comece pelo começo</h2>
+        <article class="caixa-comeco">
+          <form class="form-comeco">
+            <input
+              type="text"
+              minlength="20"
+              maxlength="65"
+              class="input-padrao"
+              id="titulo-quiz"
+              placeholder="Título do seu quizz"
+              autofocus
+              required
+            />
+            <input
+              type="url"
+              class="input-padrao"
+              id="imagem-quiz"
+              placeholder="URL da imagem do seu quizz"
+              required
+            />
+            <input
+              type="number"
+              min="3"
+              class="input-padrao"
+              id="qtd-perguntas"
+              placeholder="Quantidade de perguntas do quizz"
+              required
+            />
+            <input
+              type="number"
+              min="2"
+              class="input-padrao"
+              id="qtd-niveis"
+              placeholder="Quantidade de níveis do quizz"
+              required
+            />
+          </form>
+        </article>
+        <button class="botao-padrao botao-comeco" onclick="validarFormulario(this)">
+          Prosseguir para criar perguntas
+        </button>
+      </section>
+      <section class="pergunta esconder">
+        <h2 class="titulo titulo-pergunta">Crie suas perguntas</h2>
+      </section>
+      <section class="nivel esconder">
+        <h2 class="titulo titulo-pergunta">Agora, decida os níveis</h2>
+      </section>
+      <section class="finalizar esconder">
+        <h2 class="titulo titulo-finalizar">Seu quizz está pronto!</h2>
+        <article class="caixa-finalizar"></article>
+        <div class="botoes">
+          <button class="botao-padrao botao-finalizar" onclick="acessarQuiz()">
+            Acessar Quizz
+          </button>
+          <a href="../index.html" class="botao-voltar">Voltar pra home</a>
+        </div>
+      </section>
     </main>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../script.js"></script>
-</body>
+  </body>
 </html>

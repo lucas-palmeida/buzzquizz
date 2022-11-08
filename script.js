@@ -9,19 +9,10 @@ let contadorTelas = 0;
 let quiz = null;
 const requestId = localStorage.getItem("quizId");
 const numberId = JSON.parse(requestId);
-let quizesCriados = []
-const requestIdQuizCriado = localStorage.getItem("listaId")
-quizesCriados = JSON.parse(requestIdQuizCriado)
-let respostaID = 0
-
-
-
-
-
-
-
-
-
+let quizesCriados = [];
+const requestIdQuizCriado = localStorage.getItem("listaId");
+quizesCriados = JSON.parse(requestIdQuizCriado);
+let respostaID = 0;
 
 // Pegar os dados da API
 function requestAPI() {
@@ -34,7 +25,7 @@ function requestAPI() {
         questions(arrayQuiz.questions, arrayQuiz);
       })
       .catch(() => {
-        alert(`Erro no request da API minha`);
+        alert(`Erro no request da API minha tela 2`);
       });
   }
 }
@@ -49,6 +40,7 @@ function ListarQuizes(resposta) {
   for (let i = 0; i < resposta.length; i++) {
     quizz1.innerHTML += `
       <li class="quizz" id="${resposta[i].id}" onclick="GetId(this)">
+      <a href="../pages/telaQuiz.html"></a> 
         <p>${resposta[i].title}</p>
       </li>
       `;
@@ -57,109 +49,17 @@ function ListarQuizes(resposta) {
 function GetData() {
   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
   promessa.then((resposta) => {
-    const verify = window.location.href.includes("buzzquizz");
-    if (verify) {
       ListarQuizes(resposta);
-    }
   });
 }
 GetData();
+
 function GetId(valor) {
   const varId = Number(valor.id);
   const data = JSON.stringify(varId);
-  window.location.href = "../pages/telaQuiz.html";
+  window.location.href = "./pages/telaQuiz.html";
   localStorage.setItem("quizId", data);
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //  Segunda Tela
 
@@ -172,7 +72,10 @@ let numberHits = 0;
 function questions(questions, quiz) {
   // Título e imagem do banner com camada preta de 60% de opacidade
   quizBannerDiv.innerHTML = `<h1>${quiz.title}</h1>`;
-  quizBannerDiv.style.cssText = `background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${quiz.image}) no-repeat center center fixed;`;
+  quizBannerDiv.style.cssText = `
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)),
+  url(${quiz.image}) no-repeat center center fixed;
+  `;
   //For passando pelas questões do quiz
   for (let i = 0; i < questions.length; i++) {
     const shuffledAnswers = shuffle(questions[i].answers);
@@ -293,24 +196,9 @@ function restart() {
       allRespostas[i].classList.remove("incorrect");
     }
   }
-  mainBox.lastElementChild.remove()
+  mainBox.lastElementChild.remove();
   mainBox.firstElementChild.scrollIntoView({ behavior: "smooth", block: "start" });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Terceira tela
 // Validando as informações fornecidas nos campos do formulário
@@ -355,6 +243,7 @@ function proximaEtapa() {
   etapaTela = etapaTela.nextElementSibling;
   etapaTela.classList.remove("esconder");
 }
+Math.random;
 
 // Interação do icone de edicao na tela de criar perguntas e niveis
 function editarCaixa(caixa) {
@@ -449,18 +338,21 @@ function gerarNovoQuiz() {
       let textoResposta = null;
       let imagemResposta = null;
       let respostaCorreta = false;
-      if(idxRespostas[j] === null) {
-        
+      if (idxRespostas[j] === null) {
       } else {
         textoResposta = idxRespostas[j].value;
         imagemResposta = idxImagemResposta[j].value;
-        if(j === 0) {
+        if (j === 0) {
           respostaCorreta = true;
         }
-        listaRespostas.push({text: textoResposta, image: imagemResposta, isCorrectAnswer: respostaCorreta});
+        listaRespostas.push({
+          text: textoResposta,
+          image: imagemResposta,
+          isCorrectAnswer: respostaCorreta,
+        });
       }
     }
-    listaPerguntas.push({title: textoPergunta, color: imagemPergunta, answers: listaRespostas});
+    listaPerguntas.push({ title: textoPergunta, color: imagemPergunta, answers: listaRespostas });
   }
 
   for (let i = 0; i < idxNiveis.length; i++) {
@@ -479,27 +371,27 @@ function gerarNovoQuiz() {
     });
   }
 
-  document.querySelector(".caixa-finalizar").innerHTML = `<picture class="caixa-imagem-finalizar"><img src="${imagemQuiz}" class="imagem-finalizar"/><p class="texto-imagem-finalizar">${tituloQuiz}</p></picture>`;
+  document.querySelector(
+    ".caixa-finalizar"
+  ).innerHTML = `<picture class="caixa-imagem-finalizar"><img src="${imagemQuiz}" class="imagem-finalizar"/><p class="texto-imagem-finalizar">${tituloQuiz}</p></picture>`;
 
-  quiz = {title: tituloQuiz, image: imagemQuiz, questions: listaPerguntas, levels: listaNiveis};
-  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quiz)
-  .then(foiEnviado)
-  .catch(naoBombou);
+  quiz = { title: tituloQuiz, image: imagemQuiz, questions: listaPerguntas, levels: listaNiveis };
+  axios
+    .post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quiz)
+    .then(foiEnviado)
+    .catch(naoBombou);
 }
 
 function foiEnviado(resposta) {
-  respostaID = resposta.data.id
-  quizesCriados = JSON.parse(requestIdQuizCriado)
-  quizesCriados.push(respostaID)
-  let idSerializado = JSON.stringify(quizesCriados)
-  localStorage.setItem("listaId", idSerializado)
-  alert("foi")
-  console.log(quizesCriados)
-  
+  respostaID = resposta.data.id;
+  quizesCriados = JSON.parse(requestIdQuizCriado);
+  quizesCriados.push(respostaID);
+  let idSerializado = JSON.stringify(quizesCriados);
+  localStorage.setItem("listaId", idSerializado);
 }
 
 function naoBombou(resposta) {
-  alert("erro no post do quizz")
+  alert("erro no post do quizz");
   console.log(resposta.response.status);
 }
 
